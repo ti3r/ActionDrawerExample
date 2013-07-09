@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">ActionDrawerExample</string>
+    <string name="select_fragment">Selecciona Color</string>
+    <string name="color_fragment">Pantalla de Color</string>
+    <array name="main_act_drawer_opts">
+        <item>Rojo</item>
+        <item>Azul</item>
+        <item>Verde</item>
+        <item>Amarillo</item>
+    </array>
+    <string-array name="colors">
+        <item>#ffff0000</item>
+        <item>#FF0000FF</item>
+        <item>#FF00FF00</item>
+        <item>#fffffd00</item>
+    </string-array>
+</resources>
