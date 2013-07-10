@@ -19,6 +19,7 @@ package org.blanco.android.actiondrawerexample;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
@@ -27,10 +28,12 @@ import android.widget.ListView;
 
 import org.blanco.tests.viewpager.PlainColorFragment;
 
+import java.util.HashMap;
+
 import static org.blanco.android.actiondrawerexample.MainActivity.TAG;
 
 /**
- * Created by asantana on 7/9/13.
+ * Created by Alexandro Blanco <ti3r.bubblenet@gmail.com> on 7/9/13.
  */
 public class DrawerClickListener implements AdapterView.OnItemClickListener {
 
@@ -38,6 +41,7 @@ public class DrawerClickListener implements AdapterView.OnItemClickListener {
     DrawerLayout mDrawerLayout;
     ListView mDrawer;
     FragmentManager mFragmentManager;
+    HashMap<String,Bundle> mFragmentSavedInstance;
 
     public DrawerClickListener(FragmentManager fragmentManager,
                                DrawerLayout mDrawerLayout, ListView mDrawer) {
@@ -45,6 +49,7 @@ public class DrawerClickListener implements AdapterView.OnItemClickListener {
         this.mDrawerLayout = mDrawerLayout;
         this.mDrawer = mDrawer;
         mColors = mDrawer.getContext().getResources().getStringArray(R.array.colors);
+        mFragmentSavedInstance = new HashMap<String, Bundle>();
         Log.d(TAG,"Listener Initialized");
     }
 
@@ -54,9 +59,18 @@ public class DrawerClickListener implements AdapterView.OnItemClickListener {
                 mColors[i] : "#FFFFFFFF"; //White if not found
         mDrawerLayout.closeDrawer(mDrawer);
 
-        Fragment fragment = PlainColorFragment.newInstance(Color.parseColor(color));
+        Fragment fragment = null;
+        if (!mFragmentSavedInstance.containsKey(color)){
+            mFragmentSavedInstance.put(color,new Bundle());
+            //create a new fragment for this new selected color
+            fragment = PlainColorFragment.newInstance(Color.parseColor(color));
+        }else{
+            fragment =
+               mFragmentManager.getFragment(mFragmentSavedInstance.get(color),color);
+        }
+        //mFragmentManager.sa
         mFragmentManager.beginTransaction()
-                .add(R.id.content_frame, fragment)
+                .replace(R.id.content_frame, fragment,color)
                 .commit();
     }
 }

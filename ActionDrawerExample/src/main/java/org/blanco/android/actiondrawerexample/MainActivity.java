@@ -24,6 +24,10 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+//import com.google.ads.AdRequest;
+//import com.google.ads.AdSize;
+//import com.google.ads.AdView;
+
 /**
  * Created by Alexandro Blanco <ti3r.bubblenet@gmail.com>
  * on 7/8/13.
@@ -32,18 +36,25 @@ import android.widget.ListView;
 public class MainActivity extends Activity {
 
     public static final String TAG = "ActionDrawerExample";
+    private static final String MY_AD_UNIT_ID = "a151dc6cc523440";
     ActionBarDrawerToggle mDrawerToggle;
+    //AdView adView;
+    DrawerLayout drawerLayout;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         prepareActionDrawer();
+        //Display adds
+//        adView = new AdView(this, AdSize.BANNER, MY_AD_UNIT_ID);
+//        drawerLayout.addView(adView);
+//        adView.loadAd(new AdRequest());
     }
 
     private void prepareActionDrawer() {
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.main_act_drawer);
+        drawerLayout = (DrawerLayout) findViewById(R.id.main_act_drawer);
         ListView list = (ListView) findViewById(R.id.left_drawer);
 
         ArrayAdapter<String> opts = new ArrayAdapter<String>(getBaseContext(),
@@ -54,7 +65,7 @@ public class MainActivity extends Activity {
                 new DrawerClickListener(getFragmentManager(), drawerLayout, list));
 
         mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
-                android.R.drawable.ic_menu_day, R.string.app_name, R.string.app_name);
+                android.R.drawable.ic_menu_day, R.string.select_fragment, R.string.app_name);
         // Set the drawer toggle as the DrawerListener
         drawerLayout.setDrawerListener(mDrawerToggle);
     }
