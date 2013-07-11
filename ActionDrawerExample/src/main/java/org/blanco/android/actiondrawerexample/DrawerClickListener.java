@@ -60,14 +60,15 @@ public class DrawerClickListener implements AdapterView.OnItemClickListener {
         mDrawerLayout.closeDrawer(mDrawer);
 
         Fragment fragment = null;
-        if (!mFragmentSavedInstance.containsKey(color)){
-            mFragmentSavedInstance.put(color,new Bundle());
-            //create a new fragment for this new selected color
-            fragment = PlainColorFragment.newInstance(Color.parseColor(color));
-        }else{
+//        if (!mFragmentSavedInstance.containsKey(color)){
+//            mFragmentSavedInstance.put(color,new Bundle());
+//            //create a new fragment for this new selected color
             fragment =
-               mFragmentManager.getFragment(mFragmentSavedInstance.get(color),color);
-        }
+                    PlainColorFragment.newInstance(Color.parseColor(color));
+//        }else{
+//            fragment =
+//               mFragmentManager.getFragment(mFragmentSavedInstance.get(color),color);
+//        }
         //mFragmentManager.sa
         mFragmentManager.beginTransaction()
                 .replace(R.id.content_frame, fragment,color)
